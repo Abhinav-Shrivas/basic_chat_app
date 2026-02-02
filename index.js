@@ -8,14 +8,10 @@ const io = socketio(server);
 
 io.on('connection',(socket)=>{
     console.log("a user is connected");
-
-    socket.on('from client', ()=>{
-        console.log("event received from client.");
+    socket.on('send msg', (data)=>{
+        console.log(data);
+        io.emit("message received",data);
     })
-
-    setInterval(()=>{
-        socket.emit("from server");
-    },2000);
 })
 
 app.use('/',express.static(__dirname + '/public'));
